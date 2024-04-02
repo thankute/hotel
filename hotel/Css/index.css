@@ -1,0 +1,340 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    list-style: none;
+}
+
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    padding: 6px 8px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+
+a {
+    text-decoration: none;
+    color: white;
+    display: inline-flex;
+}
+
+.container {
+    height: 100vh;
+    max-height: 100vh;
+    background-color: #1A1919;
+    width: 100%;
+    overflow: hidden;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    color: white;
+    background-color: #1A1919;
+}
+
+.logo {
+    font-size: 36px;
+    color: #FF6B00;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #1A1919;
+    color: white;
+}
+
+.sidebar-menu li a {
+    width: 100%;
+    padding: 20px 20px;
+    align-items: center;
+}
+
+    .sidebar-menu li a:hover {
+        background-color: #222222;
+    }
+
+
+.sidebar-menu li .bx {
+    margin-right: 20px;
+    font-size: 24px;
+}
+
+.sidebar-menu li .bx-chevron-down {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    transition: 0.3s ease;
+}
+
+.sidebar-menu li .sub-menu {
+    background-color: #222222;
+    display: none;
+}
+
+.sidebar-menu li .sub-item {
+    padding-left: 64px;
+}
+
+.show {
+    display: block !important;
+}
+
+.content {
+    height: 100vh;
+    margin-top: 30px;
+    margin-left: 300px;
+    background: white;
+    overflow: auto;
+    border-top-left-radius: 10px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+
+.content_container {
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+}
+
+.search {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    flex-wrap: wrap;
+}
+
+.search-content {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 20px;
+}
+
+.search-col {
+    width: 100%;
+}
+
+.add-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 16px 0;
+}
+
+
+.table-container {
+    background: white;
+}
+
+
+table {
+    width: 100%;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    background-color: dimgray;
+}
+
+.search-btn {
+    margin-left: 16px;
+    background-color: #1A1919;
+    color: white;
+}
+
+
+.add-btn {
+    color: white;
+    background-color: green;
+}
+
+.add-btn:hover {
+    background-color: darkgreen;
+}
+
+
+.edit-btn {
+    color: dodgerblue;
+}
+
+.delete-btn {
+    color: red;
+}
+
+
+
+
+
+/* modal */
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 0;
+    border: 1px solid #888;
+    border-radius: 12px;
+    max-width: 640px;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Modal Header */
+.modal-header {
+    padding: 16px;
+}
+
+/* Modal Body */
+.modal-body {
+    width: 100%;
+    background-color: white;
+    padding: 2px 16px;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+/* toast */
+.snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 5%; /* Center the snackbar */
+    top: 30px; /* 30px from the bottom */
+}
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+.show {
+        visibility: visible; /* Show the snackbar */
+        /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+
+    to {
+        top: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+
+    to {
+        top: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        top: 30px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        top: 30px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0;
+        opacity: 0;
+    }
+}

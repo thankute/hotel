@@ -1,0 +1,91 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="CMSLayout.master.cs" Inherits="hotel.CMSLayout" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="Css/index.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <div class="sidebar">
+                <div class="logo">TLT HOTEL</div>
+                <div>
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="../Admin/Dashboard.aspx">
+                                <i class='bx bx-home'></i>
+                                <span>Trang chủ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../Admin/Dashboard.aspx">
+                                <i class='bx bx-user'></i>
+                                <span>Quản lý người dùng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../Admin/Dashboard.aspx">
+                                <i class='bx bx-building-house'></i>
+                                <span>Quản lý đặt phòng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <div>
+                                <a id="sub-btn">
+                                    <i class='bx bx-store-alt'></i>
+                                    <span>Quản lý phòng</span>
+                                    <i class='bx bx-chevron-down'></i>
+                                </a>
+                                <div class="sub-menu" id="subMenu">
+                                    <a href="/src/Room.aspx" class="sub-item">Phòng</a>
+                                    <a href="/src/RoomType.aspx" class="sub-item">Loại phòng</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="../Admin/Dashboard.aspx">
+                                <i class='bx bx-food-menu'></i>
+                                <span>Quản lý dịch vụ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../Admin/Dashboard.aspx">
+                                <i class='bx bxs-file-doc'></i>
+                                <span>Báo cáo</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar">
+                <asp:Label runat="server">Admin</asp:Label>
+            </div>
+            <div class="content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+        const subBtn = document.getElementById("sub-btn");
+        const subMenu = document.getElementById("subMenu");
+        subBtn.onclick = function (e) {
+            console.log("aaa", subBtn);
+            console.log("bbb", subMenu);
+            subMenu.classList.toggle("show")
+        }
+    </script>
+</body>
+</html>

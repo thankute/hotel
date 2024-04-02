@@ -1,0 +1,56 @@
+﻿use hotel
+
+
+Create Table user_tb(
+	ID int primary key IDENTITY(1,1) not null,
+	username NVARCHAR(255) unique,
+	fullname NVARCHAR(255),
+	password NVARCHAR(255)
+)
+
+create table room_type(
+	ID int primary key IDENTITY(1,1) not null,
+	name NVARCHAR(255),
+	base_price int not null
+)
+
+
+
+create table room(
+	ID int primary key IDENTITY(1,1) not null,
+	room_number NVARCHAR(255) unique,
+	room_name NVARCHAR(255),
+	description NVARCHAR(255),
+	room_type_id int,
+	status int not null default 0,
+	FOREIGN KEY (room_type_id) REFERENCES room_type(ID)
+)
+
+create table booking(
+	ID int primary key IDENTITY(1,1) not null,
+	room_id int,
+	user_id int,
+	checkin_date Date not null,
+	checkout_date Date not null,
+	num_adults int,
+	num_children int,
+	FOREIGN KEY (room_id) REFERENCES room(ID),
+	FOREIGN KEY (user_id) REFERENCES user(ID)
+)
+
+
+drop table room
+drop table room_type
+
+insert into room_type (name, base_price) VALUES ('Standard', 199000),('Superior', 299000), ('Deluxe', 399000), ('Suite', 999000)
+
+insert into room(room_number, room_name, description, room_type_id, status) VALUES ('P101', N'Phòng Thường 1', N'Đây là phòng thường', 1, 0), ('P201', N'Phòng Xịn 1', N'Đây là phòng xịn', 2, 0), ('P301', N'Phòng Sang 1',N'Đây là phòng sang', 3, 0), ('P401', N'Phòng Tổng thống 1', N'Đây là phòng tổng thống', 4, 0)   
+
+
+
+select * from room_type
+
+select * from room
+
+
+select r.ID, r.room_number, r.room_name, r.description, r.status, rt.name AS room_type, rt.base_price as price from room r join room_type rt on r.room_type_id = rt.ID
