@@ -1,11 +1,16 @@
 ﻿use hotel
 
 
-Create Table user_tb(
+Create Table guest(
 	ID int primary key IDENTITY(1,1) not null,
-	username NVARCHAR(255) unique,
 	fullname NVARCHAR(255),
-	password NVARCHAR(255)
+	password NVARCHAR(255),
+	mobile NVARCHAR(255) unique,
+	gender int not null default 0,
+	address NVARCHAR(255),
+	passport NVARCHAR(255),
+	email NVARCHAR(255),
+	status int default 0
 )
 
 create table room_type(
@@ -23,34 +28,46 @@ create table room(
 	description NVARCHAR(255),
 	room_type_id int,
 	status int not null default 0,
+	isDeleted int default 0,
 	FOREIGN KEY (room_type_id) REFERENCES room_type(ID)
 )
 
 create table booking(
 	ID int primary key IDENTITY(1,1) not null,
 	room_id int,
-	user_id int,
+	guest_id int,
 	checkin_date Date not null,
 	checkout_date Date not null,
 	num_adults int,
 	num_children int,
+	status int not null default 0,
+	total_price int,
 	FOREIGN KEY (room_id) REFERENCES room(ID),
-	FOREIGN KEY (user_id) REFERENCES user(ID)
+	FOREIGN KEY (guest_id) REFERENCES guest(ID)
 )
 
 
+drop table booking
+drop table guest
 drop table room
 drop table room_type
+
 
 insert into room_type (name, base_price) VALUES ('Standard', 199000),('Superior', 299000), ('Deluxe', 399000), ('Suite', 999000)
 
 insert into room(room_number, room_name, description, room_type_id, status) VALUES ('P101', N'Phòng Thường 1', N'Đây là phòng thường', 1, 0), ('P201', N'Phòng Xịn 1', N'Đây là phòng xịn', 2, 0), ('P301', N'Phòng Sang 1',N'Đây là phòng sang', 3, 0), ('P401', N'Phòng Tổng thống 1', N'Đây là phòng tổng thống', 4, 0)   
 
+insert into guest(fullname,mobile,gender,address,passport,email) VALUES (N'Thành',N'0812497481',0,N'Hà Đông, Hà Nội', '00124151089543', 'thanhpt2612@gmail.com')
 
+insert into booking(room_id,guest_id,checkin_date,checkout_date, num_adults,num_children,status,total_price) VALUES (1,1,'2024-04-05','2024-04-06',2,0,0,199000);
 
 select * from room_type
 
 select * from room
 
-
+select * from guest
 select r.ID, r.room_number, r.room_name, r.description, r.status, rt.name AS room_type, rt.base_price as price from room r join room_type rt on r.room_type_id = rt.ID
+
+select booking.*, room.room_number, guest.fullname, guest.mobile from booking join room on room.ID = booking.room_id join guest on guest.ID = booking.guest_id
+
+select rt.base_price as price from room r join room_type rt on r.room_type_id = rt.ID where r.ID=1

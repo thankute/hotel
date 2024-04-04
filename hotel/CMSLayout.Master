@@ -21,19 +21,19 @@
                 <div>
                     <ul class="sidebar-menu">
                         <li>
-                            <a href="../Admin/Dashboard.aspx">
+                            <a href="/src/Dashboard.aspx">
                                 <i class='bx bx-home'></i>
                                 <span>Trang chủ</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Admin/Dashboard.aspx">
+                            <a href="/src/User.aspx">
                                 <i class='bx bx-user'></i>
                                 <span>Quản lý người dùng</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Admin/Dashboard.aspx">
+                            <a href="/src/Booking.aspx">
                                 <i class='bx bx-building-house'></i>
                                 <span>Quản lý đặt phòng</span>
                             </a>

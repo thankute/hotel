@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace hotel.src
 {
-    public partial class RoomType : System.Web.UI.Page
+    public partial class User : System.Web.UI.Page
     {
         CommonFnx fn = new CommonFnx();
 
@@ -21,16 +22,38 @@ namespace hotel.src
         {
             if (!IsPostBack)
             {
-                getRoomType();
+                getGuest();
             }
         }
 
-        public void getRoomType()
+        public void getGuest()
         {
-            DataTable dt = fn.Fetch("Select * from room_type");
+            DataTable dt = fn.Fetch("select * from guest where status = 0");
             GridView1.DataSource = dt;
             GridView1.DataBind();
         }
+
+        protected void onRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                TableCell statusCell = e.Row.Cells[4];
+                if (statusCell.Text == "0")
+                {
+                    statusCell.Text = "Nam";
+                }
+                else if (statusCell.Text == "1")
+                {
+                    statusCell.Text = "Nữ";
+                }
+                else
+                {
+                    statusCell.Text = "-";
+                }
+
+            }
+        }
+
 
         protected void AddBtnClick(object sender, EventArgs e)
         {
@@ -53,37 +76,45 @@ namespace hotel.src
             if (!string.IsNullOrEmpty(hiddenStatus.Value))
             {
                 string id = hiddenStatus.Value;
-                query = "update room_type set name=@name, base_price=@price where ID=@id";
+                query = "update guest set fullname=@fullname, mobile=@mobile, gender=@gender, address=@address, passport=@passport,email=@email where ID=@id";
                 cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@id", id);
-            } else
+            }
+            else
             {
-                query = "insert into room_type (name, base_price) VALUES (@name, @price)";
+                query = "insert into guest(fullname,mobile,gender,address,passport,email) VALUES (@fullname,@mobile,@gender,@address,@passport,@email)";
                 cmd = new SqlCommand(query, con);
             }
 
-            cmd.Parameters.AddWithValue("@name", txtRoomType.Text);
-            cmd.Parameters.AddWithValue("@price", txtBasePrice.Text);
+            cmd.Parameters.AddWithValue("@fullname", txtFullname.Text);
+            cmd.Parameters.AddWithValue("@mobile", txtMobile.Text);
+            cmd.Parameters.AddWithValue("@gender", ddlGender.SelectedValue.ToString());
+            cmd.Parameters.AddWithValue("@address", txtAddress.Text);
+            cmd.Parameters.AddWithValue("@passport", txtPassport.Text);
+            cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+
 
             int rowAff = cmd.ExecuteNonQuery();
             con.Close();
 
-            if(rowAff > 0)
+            if (rowAff > 0)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "closeModal", "closeModal();", true);
                 if (!string.IsNullOrEmpty(hiddenStatus.Value))
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "toastSuccess", "successToast('Chỉnh sửa thành công!');", true);
-                } else
+                }
+                else
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "toastSuccess", "successToast();", true);
                 }
-            } else
+            }
+            else
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "closeModal", "closeModal();", true);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "toastFailed", "failedToast();", true);
             }
-            getRoomType();
+            getGuest();
             ClearText();
         }
 
@@ -95,7 +126,7 @@ namespace hotel.src
             {
                 deleteCommand(result);
             }
-            if(e.CommandName == "EditRow")
+            if (e.CommandName == "EditRow")
             {
                 hiddenStatus.Value = id;
                 editCommand(result);
@@ -109,12 +140,12 @@ namespace hotel.src
             {
                 con.Open();
             }
-            string query = "delete from room_type where ID=@id";
+            string query = "update guest set status=1 where ID=@id";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
             con.Close();
-            getRoomType();
+            getGuest();
         }
 
         protected void editCommand(int id)
@@ -124,35 +155,41 @@ namespace hotel.src
             {
                 con.Open();
             }
-            string query = "select * from room_type where ID=@id";
+            string query = "select * from guest where ID=@id";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
 
             SqlDataReader dataReader = cmd.ExecuteReader();
 
-            if(dataReader.Read())
+            if (dataReader.Read())
             {
-                txtRoomType.Text = dataReader["name"].ToString();
-                txtBasePrice.Text = dataReader["base_price"].ToString();
-
+                txtFullname.Text = dataReader["fullname"].ToString();
+                txtEmail.Text = dataReader["email"].ToString();
+                txtAddress.Text = dataReader["address"].ToString();
+                txtMobile.Text = dataReader["mobile"].ToString();
+                txtPassport.Text = dataReader["passport"].ToString();
+                ddlGender.SelectedValue = dataReader["gender"].ToString();
             }
             dataReader.Close();
             con.Close();
 
-            modalTitle.Text = "Chỉnh sửa Loại Phòng";
+            modalTitle.Text = "Chỉnh sửa Nguòi dùng";
             submitButton.Text = "Lưu";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenModalScript", "openModal();", true);
         }
 
-        protected void ClearText()
+        public void ClearText()
         {
             hiddenStatus.Value = "";
-            modalTitle.Text = "Thêm mới Loại Phòng";
+            modalTitle.Text = "Thêm mới Người dùng";
             submitButton.Text = "Thêm mới";
-            txtRoomType.Text = "";
-            txtBasePrice.Text = "";
+            txtFullname.Text = "";
+            txtAddress.Text = "";
+            txtEmail.Text = "";
+            txtMobile.Text = "";
+            txtPassport.Text = "";
+            ddlGender.SelectedValue = "0";
         }
-
 
     }
 }

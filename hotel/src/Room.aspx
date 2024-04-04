@@ -37,7 +37,7 @@
 
      <%-- table --%>
      <div class="table-container">
-         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowCommand="GridView1_RowCommand">
+         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowCommand="GridView1_RowCommand" OnRowDataBound="onRowDataBound">
              <Columns>
                  <asp:BoundField DataField="ID" HeaderText="ID">
                      <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -58,7 +58,6 @@
                      <ItemTemplate>
                          <asp:LinkButton ID="sua" CommandArgument='<%# Eval("ID") %>' CommandName="EditRow" CssClass="edit-btn" runat="server">Sửa</asp:LinkButton> 
                      </ItemTemplate>
-
 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                  </asp:TemplateField>
                   <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="">
@@ -85,23 +84,24 @@
          </div>
          <div class="modal-body flex flex-col">
              <label>Số phòng</label>
-             <asp:TextBox ID="txtRoomType" placeholder="Nhập loại phòng" runat="server"/>
+             <asp:TextBox ID="txtRoomNumber" placeholder="Nhập loại phòng" runat="server"/>
              <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtRoomType" ErrorMessage="Vui lòng nhập Loại Phòng"/>--%>
 
-             <label>Tên phòng</label>
-             <asp:TextBox ID="TextBox2" placeholder="Nhập loại phòng" runat="server"/>
+             <label style="margin-top: 10px">Tên phòng</label>
+             <asp:TextBox ID="txtRoomName" placeholder="Nhập loại phòng" runat="server"/>
 
 
              <label style="margin-top: 10px">Mô tả</label>
-             <asp:TextBox ID="txtBasePrice" placeholder="Nhập giá phòng" runat="server" TextMode="Number" />
+             <asp:TextBox ID="txtDescription" placeholder="Nhập giá phòng" runat="server"/>
              <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtBasePrice" ErrorMessage="Vui lòng nhập Giá phòng"/>--%>
 
-             <label style="margin-top: 10px">Mô tả</label>
-             <asp:DropDownList ID="ddlRoomType" runat="server"></asp:DropDownList>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Can loai phong" ControlToValidate="ddlRoomType" Display="Dynamic" InitialValue="Chọn loại phòng" SetFocusOnError="True"></asp:RequiredFieldValidator>
+             <label style="margin-top: 10px">Loại phòng</label>
+             <asp:DropDownList ID="ddlRoomType" runat="server" CssClass="drop-select">
+             </asp:DropDownList>
+             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Can loai phong" ControlToValidate="ddlRoomType" Display="Dynamic" InitialValue="Chọn loại phòng" SetFocusOnError="True"></asp:RequiredFieldValidator>--%>
 
-             <label style="margin-top: 10px">Mô tả</label>
-             <asp:DropDownList ID="DropDownList2" runat="server" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+             <label style="margin-top: 10px">Trạng thái</label>
+             <asp:DropDownList ID="ddlStatus" runat="server" CssClass="drop-select">
                     <asp:ListItem Value="0">Trống</asp:ListItem>
                     <asp:ListItem Value="1">Đang được sử dụng</asp:ListItem>
                     <asp:ListItem Value="2">Đang dọn</asp:ListItem>
@@ -126,6 +126,7 @@
      }
      function closeModal() {
          modal.style.display = "none";
+         PageMethods.ClearText();
      }
      // When the user clicks on <span> (x), close the modal
      span.onclick = function () {
