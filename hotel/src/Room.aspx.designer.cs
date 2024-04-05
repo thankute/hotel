@@ -15,13 +15,13 @@ namespace hotel.src
     {
 
         /// <summary>
-        /// TextBox1 control.
+        /// txtSearchRoomNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchRoomNumber;
 
         /// <summary>
         /// Button1 control.
@@ -33,13 +33,13 @@ namespace hotel.src
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// Button2 control.
+        /// searchBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button searchBtn;
 
         /// <summary>
         /// addBtn control.

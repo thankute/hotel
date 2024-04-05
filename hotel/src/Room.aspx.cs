@@ -71,6 +71,23 @@ namespace hotel.src
         }
 
 
+        protected void searchSubmit(object sender, EventArgs e)
+        {
+            if (con.State == ConnectionState.Closed)
+            {
+                con.Open();
+            }
+
+            string query = "select r.ID, r.room_number, r.room_name, r.description, r.status, rt.name AS room_type, rt.base_price as price from room r join room_type rt on r.room_type_id = rt.ID where r.isDeleted=0 AND r.room_number LIKE @room_number";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@room_number", "%" + txtSearchRoomNumber.Text + "%" );
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+        }
+
         protected void AddBtnClick(object sender, EventArgs e)
         {
             ClearText();

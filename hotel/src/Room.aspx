@@ -21,12 +21,12 @@
          <div class="search-content">
              <div class="search-col flex flex-col">
                  <asp:Label runat="server" Text="Phòng"></asp:Label>
-                 <asp:TextBox ID="TextBox1" runat="server" placeholder="Tìm theo phòng"></asp:TextBox>
+                 <asp:TextBox ID="txtSearchRoomNumber" runat="server" placeholder="Tìm theo số phòng"></asp:TextBox>
              </div>
          </div>
          <div class="center">
              <asp:Button ID="Button1" runat="server" Text="Xoá điều kiện" CssClass="btn"/>
-             <asp:Button ID="Button2" runat="server" Text="Tìm kiếm" CssClass="btn search-btn"/>
+             <asp:Button ID="searchBtn" OnClick="searchSubmit" runat="server" Text="Tìm kiếm" CssClass="btn search-btn"/>
          </div>
 
      </div>
