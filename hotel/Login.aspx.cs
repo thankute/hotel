@@ -27,7 +27,7 @@ namespace hotel
                 FormsAuthentication.RedirectFromLoginPage(username, true);
             } else
             {
-                lblMsg.Text = "Nhap sai tai khoan hoac mat khau";
+                lblMsg.Text = "Tài khoản hoặc mật khẩu không đúng";
             }
         }
     }

@@ -96,7 +96,7 @@
                 <asp:TextBox ID="txtPassport" placeholder="Nhập căn cước công dân" runat="server" />
 
                 <label style="margin-top: 10px">Địa chỉ</label>
-                <asp:TextBox ID="txtAddress" placeholder="Nhập giá phòng" runat="server" />
+                <asp:TextBox ID="txtAddress" placeholder="Nhập địa chỉ" runat="server" />
                 <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtBasePrice" ErrorMessage="Vui lòng nhập Giá phòng"/>--%>
 
                 <label style="margin-top: 10px">Giới tính</label>
