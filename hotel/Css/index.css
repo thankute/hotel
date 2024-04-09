@@ -379,3 +379,12 @@ table {
     padding: 10px 20px;
     border-radius: 12px;
 }
+
+
+
+
+.error {
+    margin-top: 6px;
+    font-size: 12px;
+    color: red;
+}

@@ -102,19 +102,22 @@
                         <div class="flex flex-col">
 
                             <label>Chọn phòng</label>
-                            <asp:DropDownList ID="ddlRoom" runat="server" AutoPostBack="true" CssClass="drop-select" OnSelectedIndexChanged="onRoomSelected">
+                            <asp:DropDownList ID="ddlRoom" runat="server" AutoPostBack="true" CssClass="drop-select" OnSelectedIndexChanged="onRoomSelected" ClientIDMode="Static">
                             </asp:DropDownList>
-
+                            <p id="errorRoom" class="error"></p>
 
                             <label style="margin-top: 10px">Chọn người dùng</label>
-                            <asp:DropDownList ID="ddlGuest" runat="server" CssClass="drop-select">
+                            <asp:DropDownList ID="ddlGuest" runat="server" CssClass="drop-select" ClientIDMode="Static">
                             </asp:DropDownList>
+                            <p id="errorUser" class="error"></p>
 
                             <label style="margin-top: 10px">Thời gian checkin</label>
-                            <asp:TextBox ID="txtCheckin" placeholder="Nhập thời gian checkin" TextMode="Date" runat="server" CssClass="date-select" />
+                            <asp:TextBox ID="txtCheckin" placeholder="Nhập thời gian checkin" TextMode="Date" runat="server" CssClass="date-select" ClientIDMode="Static" />
+                            <p id="errorCheckin" class="error"></p>
 
                             <label style="margin-top: 10px">Thời gian checkout</label>
-                            <asp:TextBox ID="txtCheckout" placeholder="Nhập thời gian checkout" CssClass="date-select" TextMode="Date" runat="server" />
+                            <asp:TextBox ID="txtCheckout" placeholder="Nhập thời gian checkout" CssClass="date-select" TextMode="Date" runat="server" ClientIDMode="Static" />
+                            <p id="errorCheckout" class="error"></p>
 
                             <label style="margin-top: 10px">Số người lớn</label>
                             <asp:TextBox ID="txtNumAdults" placeholder="Nhập số lượng người lớn" TextMode="Number" runat="server" />
@@ -142,7 +145,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="margin-right: 6px" onclick="closeModal()">Đóng</button>
-                <asp:Button CssClass="btn add-btn" runat="server" Text="Thêm" ID="submitButton" OnClick="onSubmit" />
+                <asp:Button CssClass="btn add-btn" runat="server" Text="Thêm" ID="submitButton" OnClick="onSubmit" OnClientClick="return validate();" />
             </div>
         </div>
     </div>
@@ -171,6 +174,42 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+
+        function validate() {
+            const ddlRoom = document.getElementById("ddlRoom");
+            const ddlGuest = document.getElementById("ddlGuest");
+            const txtCheckin = document.getElementById("txtCheckin");
+            const txtCheckout = document.getElementById("txtCheckout");
+
+            const errorRoom = document.getElementById("errorRoom");
+            const errorUser = document.getElementById("errorUser");
+            const errorCheckin = document.getElementById("errorCheckin");
+            const errorCheckout = document.getElementById("errorCheckout");
+
+            let bool = true;
+            if (ddlRoom.value == "0") {
+                errorRoom.innerHTML = "Vui lòng chọn Phòng!"
+                bool = false;
+            }
+
+            if (ddlGuest.value == "0") {
+                errorUser.innerHTML = "Vui lòng chọn Người dùng!"
+                bool = false;
+            }
+
+            if (!txtCheckin.value.trim()) {
+                errorCheckin.innerHTML = "Vui lòng nhập ngày checkin!"
+                bool = false;
+            }
+
+            if (!txtCheckout.value.trim()) {
+                errorCheckout.innerHTML = "Vui lòng nhập ngày checkout!"
+                bool = false;
+            }
+
+            return bool;
         }
     </script>
     <div id="toastSuccess" class="snackbar" style="background-color: forestgreen; color: white">Thêm mới thành công</div>

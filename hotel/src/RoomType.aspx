@@ -76,17 +76,18 @@
             </div>
             <div class="modal-body flex flex-col">
                 <label>Loại phòng</label>
-                <asp:TextBox ID="txtRoomType" placeholder="Nhập loại phòng" runat="server"/>
-                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtRoomType" ErrorMessage="Vui lòng nhập Loại Phòng"/>--%>
+                <asp:TextBox ID="txtRoomType" placeholder="Nhập loại phòng" runat="server" ClientIDMode="Static"/>
+                <p id="errorRoomType" class="error"></p>
 
                 <label style="margin-top: 10px">Giá phòng</label>
-                <asp:TextBox ID="txtBasePrice" placeholder="Nhập giá phòng" runat="server" TextMode="Number" />
-                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtBasePrice" ErrorMessage="Vui lòng nhập Giá phòng"/>--%>
+                <asp:TextBox ID="txtBasePrice" placeholder="Nhập giá phòng" runat="server" TextMode="Number" ClientIDMode="Static" />
+                <p id="errorPrice" class="error"></p>
+
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="margin-right: 6px" onclick="closeModal()">Đóng</button>
-                 <asp:Button CssClass="btn add-btn" runat="server" Text="Thêm" ID="submitButton" OnClick="onSubmit" />
+                 <asp:Button CssClass="btn add-btn" runat="server" Text="Thêm" ID="submitButton" OnClick="onSubmit" OnClientClick="return validate();" />
             </div>
         </div>
     </div>
@@ -115,6 +116,28 @@
                 modal.style.display = "none";
             }
         }
+
+        function validate() {
+            const txtRoomType = document.getElementById("txtRoomType");
+            const txtBasePrice = document.getElementById("txtBasePrice");
+
+            const errorRoomType = document.getElementById("errorRoomType");
+            const errorPrice= document.getElementById("errorPrice");
+
+            let bool = true;
+
+            if (!txtRoomType.value.trim()) {
+                errorRoomType.innerHTML = "Vui lòng nhập loại phòng!";
+                bool = false;
+            }
+            if (!txtBasePrice.value.trim()) {
+                errorPrice.innerHTML = "Vui lòng nhập giá phòng!";
+                bool = false;
+            }
+            return bool;
+        }
+
+
     </script>
      <div id="toastSuccess" class="snackbar" style="background-color:forestgreen; color: white">Thêm mới thành công</div>
      <div id="toastFailed" class="snackbar" style="background-color: red; color: white">Đã có lỗi xảy ra! Vui lòng thử lại!</div>

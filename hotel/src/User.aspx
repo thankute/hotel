@@ -83,14 +83,15 @@
             </div>
             <div class="modal-body flex flex-col">
                 <label>Họ tên</label>
-                <asp:TextBox ID="txtFullname" placeholder="Nhập họ tên" runat="server" />
-                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtRoomType" ErrorMessage="Vui lòng nhập Loại Phòng"/>--%>
+                <asp:TextBox ID="txtFullname" placeholder="Nhập họ tên" runat="server" ClientIDMode="Static" />
+                <p id="errorFullName" class="error"></p>
 
                 <label style="margin-top: 10px">Email</label>
                 <asp:TextBox ID="txtEmail" placeholder="Nhập email" runat="server" TextMode="Email"/>
 
                 <label style="margin-top: 10px">Số điện thoại</label>
-                <asp:TextBox ID="txtMobile" placeholder="Nhập số điện thoại" runat="server" TextMode="Number"/>
+                <asp:TextBox ID="txtMobile" placeholder="Nhập số điện thoại" runat="server" TextMode="Number" ClientIDMode="Static"/>
+                <p id="errorMobile" class="error"></p>
 
                 <label style="margin-top: 10px">Căn cước</label>
                 <asp:TextBox ID="txtPassport" placeholder="Nhập căn cước công dân" runat="server" />
@@ -107,7 +108,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="margin-right: 6px" onclick="closeModal()">Đóng</button>
-                <asp:Button CssClass="btn add-btn" runat="server" Text="Thêm" ID="submitButton" OnClick="onSubmit" />
+                <asp:Button CssClass="btn add-btn" runat="server" Text="Thêm" ID="submitButton" OnClick="onSubmit" OnClientClick="return validate();" />
             </div>
         </div>
     </div>
@@ -136,6 +137,26 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+        function validate() {
+            const txtFullname = document.getElementById("txtFullname");
+            const txtMobile = document.getElementById("txtMobile");
+            const errorFullName = document.getElementById("errorFullName");
+            const errorMobile = document.getElementById("errorMobile");
+            let bool = true;
+
+            if (!txtFullname.value.trim()) {
+                errorFullName.innerHTML = "Vui lòng nhập họ tên!"
+                bool = false;
+            }
+
+            if (!txtMobile.value.trim()) {
+                errorMobile.innerHTML = "Vui lòng nhập số điện thoại!"
+                bool = false;
+            }
+
+            return bool;
         }
     </script>
     <div id="toastSuccess" class="snackbar" style="background-color: forestgreen; color: white">Thêm mới thành công</div>

@@ -97,57 +97,57 @@ namespace hotel.src
         protected void onSubmit(object sender, EventArgs e)
         {
 
-            if (con.State == ConnectionState.Closed)
-            {
-                con.Open();
-            }
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
 
-            string query;
-            SqlCommand cmd;
-
-
-            if (!string.IsNullOrEmpty(hiddenStatus.Value))
-            {
-                string id = hiddenStatus.Value;
-                query = "update room set room_number=@roomNumber, room_name=@roomName, description=@description, room_type_id=@roomTypeId, status=@status where ID=@id";
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@id", id);
-            }
-            else
-            {
-                query = "insert into room(room_number, room_name, description, room_type_id, status) VALUES (@roomNumber, @roomName, @description, @roomTypeId, @status)";
-                cmd = new SqlCommand(query, con);
-            }
-
-            cmd.Parameters.AddWithValue("@roomNumber", txtRoomNumber.Text);
-            cmd.Parameters.AddWithValue("@roomName", txtRoomName.Text);
-            cmd.Parameters.AddWithValue("@description", txtDescription.Text);
-            cmd.Parameters.AddWithValue("@roomTypeId", ddlRoomType.SelectedValue.ToString());
-            cmd.Parameters.AddWithValue("@status", ddlStatus.SelectedValue.ToString());
+                string query;
+                SqlCommand cmd;
 
 
-            int rowAff = cmd.ExecuteNonQuery();
-            con.Close();
-
-            if (rowAff > 0)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "closeModal", "closeModal();", true);
                 if (!string.IsNullOrEmpty(hiddenStatus.Value))
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "toastSuccess", "successToast('Chỉnh sửa thành công!');", true);
+                    string id = hiddenStatus.Value;
+                    query = "update room set room_number=@roomNumber, room_name=@roomName, description=@description, room_type_id=@roomTypeId, status=@status where ID=@id";
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", id);
                 }
                 else
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "toastSuccess", "successToast();", true);
+                    query = "insert into room(room_number, room_name, description, room_type_id, status) VALUES (@roomNumber, @roomName, @description, @roomTypeId, @status)";
+                    cmd = new SqlCommand(query, con);
                 }
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "closeModal", "closeModal();", true);
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "toastFailed", "failedToast();", true);
-            }
-            getRoom();
-            ClearText();
+
+                cmd.Parameters.AddWithValue("@roomNumber", txtRoomNumber.Text);
+                cmd.Parameters.AddWithValue("@roomName", txtRoomName.Text);
+                cmd.Parameters.AddWithValue("@description", txtDescription.Text);
+                cmd.Parameters.AddWithValue("@roomTypeId", ddlRoomType.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@status", ddlStatus.SelectedValue.ToString());
+
+
+                int rowAff = cmd.ExecuteNonQuery();
+                con.Close();
+
+                if (rowAff > 0)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "closeModal", "closeModal();", true);
+                    if (!string.IsNullOrEmpty(hiddenStatus.Value))
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "toastSuccess", "successToast('Chỉnh sửa thành công!');", true);
+                    }
+                    else
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "toastSuccess", "successToast();", true);
+                    }
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "closeModal", "closeModal();", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "toastFailed", "failedToast();", true);
+                }
+                getRoom();
+                ClearText();
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -221,8 +221,6 @@ namespace hotel.src
             ddlStatus.SelectedValue = "0";
 
         }
-
-
 
     }
 }
